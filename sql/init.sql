@@ -20,6 +20,7 @@ CREATE TABLE products (
     name VARCHAR(150) NOT NULL,
     description TEXT,
     size VARCHAR(20),
+    tipe VARCHAR(100),
     quantity INTEGER NOT NULL DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
