@@ -51,7 +51,7 @@ const upload = require('../middlewares/upload.middleware')
  *       400:
  *         description: No se recibió archivo de imagen
  */
-router.post('/:id', auth, role('Admin'), upload.single('image'), productImageController.create)
+router.post('/:id', upload.single('image'), productImageController.create)
 
 /**
  * @swagger
@@ -81,7 +81,7 @@ router.post('/:id', auth, role('Admin'), upload.single('image'), productImageCon
  *       404:
  *         description: No se encontraron imágenes para este producto
  */
-router.get('/product/:id', auth, role('Admin'), productImageController.getByProductId)
+router.get('/product/:id', productImageController.getByProductId)
 /**
  * @swagger
  * /api/images/{id}:
@@ -108,7 +108,7 @@ router.get('/product/:id', auth, role('Admin'), productImageController.getByProd
  *       404:
  *         description: No existe esta imagen
  */
-router.delete('/:id', auth, role('Admin'), productImageController.deleteImage)
+router.delete('/:id', productImageController.deleteImage)
 
 
 /**
