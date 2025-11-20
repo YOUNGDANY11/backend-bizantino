@@ -23,7 +23,7 @@ const create = async(req,res)=>{
     } catch(error) {
         return res.status(500).json({
             status:'Error',
-            mensaje: error.message
+            mensaje: 'No se pudo subir la imagen'
         })
     }
 }
@@ -58,7 +58,7 @@ const deleteImage = async(req,res)=>{
     } catch(error){
         return res.status(500).json({
             status:'Error',
-            mensaje: error.message || 'No se pudo eliminar la imagen'
+            mensaje: 'No se pudo eliminar la imagen'
         })
     }
 }

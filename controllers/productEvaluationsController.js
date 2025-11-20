@@ -79,10 +79,16 @@ const create = async(req,res)=>{
                 mensaje:'Faltan datos obligatorios'
             })
         }
+        if(assessment < 1 || assessment > 5){
+            return res.status(400).json({
+                status:'Error',
+                mensaje:'La calificación debe estar entre 1 y 5'
+            })
+        }
         const newEvaluation = await productEvaluationModel.create(id_product, id_user, assessment, comment)
         res.status(201).json({
             status:'Success',
-            mensaje:'Evaluacion creada exitosamente',
+            mensaje:'Evaluación creada/actualizada exitosamente',
             data:newEvaluation
         })
     }catch(error){

@@ -12,6 +12,8 @@ const commentsRoutes = require('./routes/commentsRoutes')
 const imageRoutes = require('./routes/imageRoutes')
 const evaluationsRoutes = require('./routes/evaluationsRoutes')
 
+
+
 const app = express()
 const PORT = process.env.PORT || 3000
 
@@ -63,6 +65,7 @@ app.use('/api/products',productRoutes)
 app.use('/api/comments',commentsRoutes)
 app.use('/api/images', imageRoutes)
 app.use('/api/evaluations', evaluationsRoutes)
+
 
 
 

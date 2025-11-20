@@ -15,8 +15,15 @@ const getByProductId = async(id_product)=>{
 }
 
 const create = async(id_product,id_user,assessment,comment) =>{
-    const result = await pool.query('INSERT INTO product_evaluations (id_product, id_user, assessment, comment) VALUES ($1, $2, $3, $4) RETURNING *',[id_product, id_user, assessment, comment])
-    return result.rows[0]
+    const existing = await pool.query('SELECT * FROM product_evaluations WHERE id_product = $1 AND id_user = $2', [id_product, id_user])
+    
+    if (existing.rows.length > 0) {
+        const result = await pool.query('UPDATE product_evaluations SET assessment = $1, comment = $2 WHERE id_product = $3 AND id_user = $4 RETURNING *', [assessment, comment, id_product, id_user])
+        return result.rows[0]
+    } else {
+        const result = await pool.query('INSERT INTO product_evaluations (id_product, id_user, assessment, comment) VALUES ($1, $2, $3, $4) RETURNING *',[id_product, id_user, assessment, comment])
+        return result.rows[0]
+    }
 }
 
 const deleteEvaluation = async(id_product_evaluation) =>{
