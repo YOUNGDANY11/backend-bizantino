@@ -11,7 +11,7 @@ const productRoutes = require('./routes/productRoutes')
 const commentsRoutes = require('./routes/commentsRoutes')
 const imageRoutes = require('./routes/imageRoutes')
 const evaluationsRoutes = require('./routes/evaluationsRoutes')
-
+const cartRoutes = require('./routes/cartRoutes')
 
 
 const app = express()
@@ -65,7 +65,7 @@ app.use('/api/products',productRoutes)
 app.use('/api/comments',commentsRoutes)
 app.use('/api/images', imageRoutes)
 app.use('/api/evaluations', evaluationsRoutes)
-
+app.use('/api/cart', cartRoutes)
 
 
 
