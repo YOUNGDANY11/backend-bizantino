@@ -7,6 +7,9 @@ const swaggerUi = require('swagger-ui-express')
 //Importaciones de modulos
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
+const productRoutes = require('./routes/productRoutes')
+const commentsRoutes = require('./routes/commentsRoutes')
+const imageRoutes = require('./routes/imageRoutes')
 
 const app = express()
 const PORT = process.env.PORT || 3000
@@ -55,6 +58,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 //endpoints
 app.use('/api/auth',authRoutes)
 app.use('/api/users',userRoutes)
+app.use('/api/products',productRoutes)
+app.use('/api/comments',commentsRoutes)
+app.use('/api/images', imageRoutes)
+
+
 
 app.listen(PORT, ()=>{
     console.log(`Server corriendo en el puerto ${PORT}`)

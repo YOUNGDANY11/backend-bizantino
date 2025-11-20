@@ -50,12 +50,12 @@ const getByName = async(name)=>{
 
 const getBySize = async(size) =>{
     const result = await pool.query('SELECT * FROM products WHERE size = $1',[size])
-    return result.rows
+    return result.rows[0]
 }
 
 const getByTipe = async(tipe) =>{
     const result = await pool.query('SELECT * FROM products WHERE tipe = $1',[tipe])
-    return result.rows
+    return result.rows[0]
 }
 
 const create = async(name,description,size,tipe,quantity) =>{
@@ -69,7 +69,7 @@ const update = async(name,description,size,tipe,quantity,id_product) =>{
 }
 
 const deleteProduct = async(id_product) =>{
-    const result = await pool.query('DELETE * FROM products WHERE id_product RETURNING *',[id_product])
+    const result = await pool.query('DELETE FROM products WHERE id_product =$1 RETURNING *',[id_product])
     return result.rows[0]
 }
 
