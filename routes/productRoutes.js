@@ -59,7 +59,7 @@ router.get('/',auth,productController.getAll)
  *       404:
  *         description: Producto no encontrado
  */
-router.get('/id/:id',auth,role('Admin'),productController.getById)
+router.get('/id/:id',auth,productController.getById)
 
 /**
  * @swagger
