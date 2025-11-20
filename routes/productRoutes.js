@@ -32,7 +32,7 @@ const role = require('../middlewares/role.middleware')
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-router.get('/',auth,role('Admin'),productController.getAll)
+router.get('/',auth,productController.getAll)
 
 /**
  * @swagger
