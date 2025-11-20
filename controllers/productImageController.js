@@ -28,6 +28,30 @@ const create = async(req,res)=>{
     }
 }
 
+const getByProductId = async(req,res)=>{
+    try {
+        const { id } = req.params
+        const id_product = id
+        const images = await imageModel.getByProductId(id_product)
+        if(images.length === 0){
+            return res.status(404).json({
+                status:'Error',
+                mensaje:'No hay imágenes para este producto'
+            })
+        }
+        return res.status(200).json({
+            status:'Success',
+            mensaje:'Consulta exitosa',
+            imagenes: images
+        })
+    } catch(error){
+        return res.status(500).json({
+            status:'Error',
+            mensaje: 'Error interno del servidor'
+        })
+    }
+}
+
 const deleteImage = async(req,res)=>{
     try {
         const { id } = req.params
@@ -64,5 +88,6 @@ const deleteImage = async(req,res)=>{
 }
 module.exports = {
     create,
+    getByProductId,
     deleteImage
 }

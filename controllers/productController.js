@@ -1,4 +1,7 @@
 const productModel = require('../models/productsModel')
+const imageModel = require('../models/productImageModel')
+const fs = require('fs')
+const path = require('path')
 
 const getAll = async(req,res)=>{
     try{
@@ -7,7 +10,7 @@ const getAll = async(req,res)=>{
         if(products.length === 0){
             return res.status(404).json({
                 status:'Error',
-                mensaje:'No hay usuarios registrados'
+                mensaje:'No hay productos registrados'
             })
         }
 
@@ -147,15 +150,15 @@ const getByTipe = async(req,res)=>{
 
 const create = async(req,res)=>{
     try{    
-        const {name,description,size,tipe,quantity} = req.body
-        if(!name || !description || !size || !tipe || !quantity){
+        const {name,description,size,tipe,quantity,price} = req.body
+        if(!name || !description || !size || !tipe || !quantity || !price){
             return res.status(400).json({
                 status:'Error',
                 mensaje:'Es requerida toda la informacion'
             })
         }
 
-        const product = await productModel.create(name,description,size,tipe,quantity)
+        const product = await productModel.create(name,description,size,tipe,quantity,price)
         return res.status(200).json({
             status:'Success',
             mensaje:'Producto creado con exito',
@@ -173,8 +176,8 @@ const update = async(req,res)=>{
     try{
         const {id} = req.params
         const id_product = id
-        const {name,description,size,tipe,quantity} = req.body
-        if(!name || !description || !size || !tipe || !quantity){
+        const {name,description,size,tipe,quantity,price} = req.body
+        if(!name || !description || !size || !tipe || !quantity || !price){
             return res.status(400).json({
                 status:'Error',
                 mensaje:'Es requerida toda la informacion'
@@ -187,9 +190,9 @@ const update = async(req,res)=>{
                 mensaje:'Producto no existe'
             })
         }
-        const product = await productModel.update(name,description,size,tipe,quantity,id_product)
+        const product = await productModel.update(name,description,size,tipe,quantity,price,id_product)
         return res.status(200).json({
-            status:'Error',
+            status:'Success',
             mensaje:'Actualizacion exitosa',
             producto:product
         })
@@ -213,6 +216,19 @@ const deleteProduct = async(req,res)=>{
                 mensaje:'Producto no existe'
             })
         }
+
+        const images = await imageModel.getByProductId(id_product)
+        
+        images.forEach(image => {
+            const absolutePath = path.join(__dirname, '..', image.image_url)
+            try {
+                if(fs.existsSync(absolutePath)){
+                    fs.unlinkSync(absolutePath)
+                }
+            } catch(fileErr){
+                console.error('Error eliminando archivo físico:', fileErr.message)
+            }
+        })
 
         const product = await productModel.deleteProduct(id_product)
         return res.status(200).json({

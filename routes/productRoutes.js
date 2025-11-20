@@ -32,7 +32,7 @@ const role = require('../middlewares/role.middleware')
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-router.get('/',auth,productController.getAll)
+router.get('/',productController.getAll)
 
 /**
  * @swagger
@@ -59,7 +59,7 @@ router.get('/',auth,productController.getAll)
  *       404:
  *         description: Producto no encontrado
  */
-router.get('/id/:id',auth,productController.getById)
+router.get('/id/:id',productController.getById)
 
 /**
  * @swagger
@@ -145,8 +145,6 @@ router.delete('/:id',auth,role('Admin'),productController.deleteProduct)
  *   get:
  *     summary: Buscar productos por nombre
  *     tags: [Products]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: name
@@ -164,7 +162,7 @@ router.delete('/:id',auth,role('Admin'),productController.deleteProduct)
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-router.get('/name',auth,productController.getByName)
+router.get('/name',productController.getByName)
 
 /**
  * @swagger
@@ -172,8 +170,6 @@ router.get('/name',auth,productController.getByName)
  *   get:
  *     summary: Buscar productos por talla
  *     tags: [Products]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: size
@@ -191,7 +187,7 @@ router.get('/name',auth,productController.getByName)
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-router.get('/size',auth,productController.getBySize)
+router.get('/size',productController.getBySize)
 
 /**
  * @swagger
@@ -199,8 +195,6 @@ router.get('/size',auth,productController.getBySize)
  *   get:
  *     summary: Buscar productos por tipo
  *     tags: [Products]
- *     security:
- *       - bearerAuth: []
  *     parameters:
  *       - in: query
  *         name: tipe
@@ -218,7 +212,7 @@ router.get('/size',auth,productController.getBySize)
  *               items:
  *                 $ref: '#/components/schemas/Product'
  */
-router.get('/tipe',auth,productController.getByTipe)
+router.get('/tipe',productController.getByTipe)
 
 
 

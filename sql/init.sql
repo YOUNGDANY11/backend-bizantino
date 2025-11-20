@@ -22,6 +22,7 @@ CREATE TABLE products (
     size VARCHAR(20),
     tipe VARCHAR(100),
     quantity INTEGER NOT NULL DEFAULT 0,
+    price DECIMAL(10,2) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

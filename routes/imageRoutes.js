@@ -55,6 +55,35 @@ router.post('/:id', auth, role('Admin'), upload.single('image'), productImageCon
 
 /**
  * @swagger
+ * /api/images/product/{id}:
+ *   get:
+ *     summary: "[ADMIN] Obtener todas las imágenes de un producto"
+ *     tags:
+ *       - ProductImages
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID del producto
+ *     responses:
+ *       200:
+ *         description: Lista de imágenes del producto
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/ProductImage'
+ *       404:
+ *         description: No se encontraron imágenes para este producto
+ */
+router.get('/product/:id', auth, role('Admin'), productImageController.getByProductId)
+/**
+ * @swagger
  * /api/images/{id}:
  *   delete:
  *     summary: "[ADMIN] Eliminar imagen de producto"

@@ -58,13 +58,13 @@ const getByTipe = async(tipe) =>{
     return result.rows[0]
 }
 
-const create = async(name,description,size,tipe,quantity) =>{
-    const result = await pool.query('INSERT INTO products (name,description,size,tipe,quantity) VALUES ($1,$2,$3,$4,$5) RETURNING *',[name,description,size,tipe,quantity])
+const create = async(name,description,size,tipe,quantity,price) =>{
+    const result = await pool.query('INSERT INTO products (name,description,size,tipe,quantity,price) VALUES ($1,$2,$3,$4,$5,$6) RETURNING *',[name,description,size,tipe,quantity,price])
     return result.rows[0]
 }
 
-const update = async(name,description,size,tipe,quantity,id_product) =>{
-    const result = await pool.query('UPDATE products SET name = $1,description = $2,size = $3,tipe = $4,quantity = $5 WHERE id_product = $6 RETURNING *',[name,description,size,tipe,quantity, id_product])
+const update = async(name,description,size,tipe,quantity,price,id_product) =>{
+    const result = await pool.query('UPDATE products SET name = $1,description = $2,size = $3,tipe = $4,quantity = $5,price = $6 WHERE id_product = $7 RETURNING *',[name,description,size,tipe,quantity,price,id_product])
     return result.rows[0]
 }
 

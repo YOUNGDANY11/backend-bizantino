@@ -93,7 +93,7 @@ router.get('/id/:id', auth,role('Admin'),userController.getById)
  *       404:
  *         description: Usuario no encontrado
  */
-router.get('/email', auth,role('Admin'),userController.getByEmail)
+router.post('/email', auth,role('Admin'),userController.getByEmail)
 
 /**
  * @swagger

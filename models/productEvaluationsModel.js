@@ -1,8 +1,23 @@
 const pool = require('../config/db')
 
 const getAll = async()=>{
-    const result = await pool.query('SELECT * FROM product_evaluations')
-    return result.rows
+    const query = `
+        SELECT 
+            pe.*,
+            u.name AS user_name,
+            u.lastname AS user_lastname,
+            u.email AS user_email,
+            p.name AS product_name,
+            p.description AS product_description,
+            p.tipe AS product_tipe,
+            p.size AS product_size
+        FROM product_evaluations pe
+        LEFT JOIN users u ON pe.id_user = u.id_user
+        LEFT JOIN products p ON pe.id_product = p.id_product
+        ORDER BY pe.created_at DESC
+    `;
+    const result = await pool.query(query);
+    return result.rows;
 }
 const getById = async(id_product_evaluation)=>{
     const result = await pool.query('SELECT * FROM product_evaluations WHERE id_product_evaluation = $1',[id_product_evaluation])

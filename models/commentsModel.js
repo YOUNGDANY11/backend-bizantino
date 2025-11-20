@@ -1,8 +1,23 @@
 const pool = require('../config/db')
 
 const getAll = async()=>{
-    const result = await pool.query('SELECT * FROM comments')
-    return result.rows
+    const query = `
+        SELECT 
+            c.*,
+            u.name AS user_name,
+            u.lastname AS user_lastname,
+            u.email AS user_email,
+            p.name AS product_name,
+            p.description AS product_description,
+            p.tipe AS product_tipe,
+            p.size AS product_size
+        FROM comments c
+        LEFT JOIN users u ON c.id_user = u.id_user
+        LEFT JOIN products p ON c.id_product = p.id_product
+        ORDER BY c.created_at DESC
+    `;
+    const result = await pool.query(query);
+    return result.rows;
 }
 
 const getById = async(id_comment)=>{

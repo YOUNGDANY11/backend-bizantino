@@ -5,6 +5,11 @@ const create = async(id_product, image_url) =>{
     return result.rows[0]
 }
 
+const getByProductId = async(id_product) =>{
+    const result = await pool.query('SELECT * FROM product_images WHERE id_product = $1',[id_product])
+    return result.rows
+}
+
 const deleteImage = async(id_image) =>{
     const existing = await pool.query('SELECT * FROM product_images WHERE id_image = $1',[id_image])
     if(existing.rows.length === 0){
@@ -16,5 +21,6 @@ const deleteImage = async(id_image) =>{
 
 module.exports = {
     create,
+    getByProductId,
     deleteImage
 }

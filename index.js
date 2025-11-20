@@ -54,7 +54,10 @@ app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-// Ruta de documentación Swagger
+// Servir archivos estaticos de la carpeta uploads
+app.use('/uploads', express.static('uploads'))
+
+// Ruta de documentacion Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 
