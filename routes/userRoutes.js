@@ -24,6 +24,22 @@ const role = require('../middlewares/role.middleware')
  */
 router.get('/', auth,role('Admin'),userController.getAll)
 
+
+/**
+ * @swagger
+ * /api/users/active:
+ *   get:
+ *     summary: Obtener el usuario autenticado (perfil propio)
+ *     tags: [Usuarios]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Usuario autenticado encontrado
+ *       401:
+ *         description: No autorizado
+ */
+router.get('/active',auth,userController.getByUserActive)
 /**
  * @swagger
  * /api/users/id/{id}:

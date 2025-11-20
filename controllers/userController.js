@@ -24,6 +24,22 @@ const getAll = async(req,res)=>{
     }
 }
 
+const getByUserActive = async(req,res)=>{
+    try{
+        const id_user = req.user.id
+        const users = await userModel.getById(id_user)
+        return res.status(200).json({
+            status:'Success',
+            mensaje:'Consulta exitosa',
+            usuario: users
+        })
+    }catch(error){
+        return res.status(500).json({
+            status:'Error',
+            mensaje:'no se pudo obtener los usuarios'
+        })
+    }
+}
 
 const getById = async(req,res)=>{
     try{
@@ -145,6 +161,7 @@ const deleteUser = async(req,res)=>{
 
 module.exports = {
     getAll,
+    getByUserActive,
     getById,
     getByEmail,
     update_address,
